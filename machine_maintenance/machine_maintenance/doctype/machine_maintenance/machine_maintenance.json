@@ -1,0 +1,170 @@
+{
+ "actions": [],
+ "autoname": "naming_series:",
+ "creation": "2025-11-15 14:28:52.441272",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_4kdm",
+  "amended_from",
+  "machine_name",
+  "status",
+  "machine_date",
+  "edit_posting_date",
+  "column_break_mfsn",
+  "maintenance_type",
+  "completion_date",
+  "technician",
+  "naming_series",
+  "section_break_bnuy",
+  "parts_used",
+  "cost",
+  "notes_tab",
+  "notes_html",
+  "notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_4kdm",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Machine Maintenance",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "machine_name",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Machine Name",
+   "options": "Item",
+   "reqd": 1
+  },
+  {
+   "fieldname": "machine_date",
+   "fieldtype": "Date",
+   "label": "Machine Date",
+   "read_only_depends_on": "eval: doc.edit_posting_date !=1",
+   "reqd": 1
+  },
+  {
+   "fieldname": "maintenance_type",
+   "fieldtype": "Select",
+   "label": "Maintenance Type",
+   "options": "\nPreventive\nCorrective"
+  },
+  {
+   "fieldname": "completion_date",
+   "fieldtype": "Date",
+   "label": "Completion Date"
+  },
+  {
+   "fieldname": "technician",
+   "fieldtype": "Link",
+   "label": "Technician",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\nScheduled\nCompleted\nOverdue"
+  },
+  {
+   "fieldname": "cost",
+   "fieldtype": "Currency",
+   "label": "Cost",
+   "read_only": 1
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "\nMM.###",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_mfsn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_bnuy",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "parts_used",
+   "fieldtype": "Table",
+   "label": "Parts Used",
+   "options": "Machine Maintenance Parts"
+  },
+  {
+   "depends_on": "eval: !doc.__islocal && doc.status != \"Scheduled\"\n",
+   "fieldname": "notes_tab",
+   "fieldtype": "Tab Break",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "notes_html",
+   "fieldtype": "HTML",
+   "label": "Notes Html"
+  },
+  {
+   "depends_on": "eval:!doc.__islocal",
+   "fieldname": "notes",
+   "fieldtype": "Table",
+   "hidden": 1,
+   "label": "Notes",
+   "no_copy": 1,
+   "options": "CRM Note"
+  },
+  {
+   "default": "0",
+   "fieldname": "edit_posting_date",
+   "fieldtype": "Check",
+   "label": "Edit Posting Date"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [
+  {
+   "link_doctype": "Journal Entry",
+   "link_fieldname": "user_remark"
+  }
+ ],
+ "modified": "2025-11-15 23:23:17.033600",
+ "modified_by": "Administrator",
+ "module": "Machine Maintenance",
+ "name": "Machine Maintenance",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "track_seen": 1
+}

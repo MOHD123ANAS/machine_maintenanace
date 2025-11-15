@@ -1,0 +1,37 @@
+{
+ "cards": [],
+ "charts": [
+  {
+   "chart": "Machine Maintenanace Status",
+   "width": "Full"
+  },
+  {
+   "chart": "Machine Maintenanace Pending Task",
+   "width": "Half"
+  },
+  {
+   "chart": "Machine Maintenanace Completed Task",
+   "width": "Half"
+  },
+  {
+   "chart": "Machine Maintenanace Monthly Cost",
+   "width": "Half"
+  },
+  {
+   "chart": "Machine Maintenanace Monthly Cost Trending",
+   "width": "Half"
+  }
+ ],
+ "creation": "2025-11-16 02:31:15.760643",
+ "dashboard_name": "Machine Maintenanace",
+ "docstatus": 0,
+ "doctype": "Dashboard",
+ "idx": 0,
+ "is_default": 0,
+ "is_standard": 1,
+ "modified": "2025-11-16 02:47:17.026314",
+ "modified_by": "Administrator",
+ "module": "Machine Maintenance",
+ "name": "Machine Maintenanace",
+ "owner": "Administrator"
+}

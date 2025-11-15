@@ -1,0 +1,70 @@
+<h2>Machine Maintenance - Consolidated Report</h2>
+
+<div id="filters"></div>
+<br>
+
+<table class="table table-bordered" id="report-table">
+    <thead>
+        <tr>
+            <th>Machine</th>
+            <th>Total Cost</th>
+            <th>Count</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+    <tfoot></tfoot>
+</table>
+
+<script>
+(async function () {
+
+    
+    var f = filters || {};
+
+    
+    let f_html = "<b>Filters:</b><br>";
+    if (f.machine_name) f_html += "Machine: " + f.machine_name + "<br>";
+    if (f.technician) f_html += "Technician: " + f.technician + "<br>";
+    if (f.from_date) f_html += "From Date: " + f.from_date + "<br>";
+    if (f.to_date) f_html += "To Date: " + f.to_date + "<br>";
+    document.getElementById("filters").innerHTML = f_html;
+
+    
+    let result = await frappe.call({
+        method: "machine_maintenance.machine_maintenance.report.machine_maintenance_report.machine_maintenance_report.execute",
+        args: { filters: f },
+    });
+
+    let rows = result.message[1] || [];
+
+    var tbody = document.querySelector("#report-table tbody");
+    var tfoot = document.querySelector("#report-table tfoot");
+
+    var grand_total = 0;
+    var grand_count = 0;
+
+    rows.forEach(function(r) {
+        var tr = document.createElement("tr");
+
+        tr.innerHTML = `
+            <td>${r.machine_name}</td>
+            <td>${r.total_cost}</td>
+            <td>${r.count}</td>
+        `;
+
+        tbody.appendChild(tr);
+
+        grand_total += (r.total_cost || 0);
+        grand_count += (r.count || 0);
+    });
+
+    tfoot.innerHTML = `
+        <tr style="font-weight:bold; background:#eef7ff;">
+            <td>Grand Total</td>
+            <td>${grand_total}</td>
+            <td>${grand_count}</td>
+        </tr>
+    `;
+
+})();
+</script>
