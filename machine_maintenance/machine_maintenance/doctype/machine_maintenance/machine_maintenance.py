@@ -123,10 +123,9 @@ class MachineMaintenance(Document):
             if self.name else None
         )
 
-    def after_save(self):
         if self.status != self._prev_status and self.status in ("Scheduled", "Completed", "Overdue"):
             frappe.enqueue(
-                "machine_maintenance.machine_maintenance.machine_maintenance.email.machine_maintenance_email.send_status_email",
+                "machine_maintenance.machine_maintenance.email.machine_maintenance_email.send_status_email",
                 queue="short",
                 timeout=300,
                 docname=self.name,
