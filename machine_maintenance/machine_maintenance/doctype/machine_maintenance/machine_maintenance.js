@@ -23,7 +23,7 @@ frappe.ui.form.on("Machine Maintenance", {
                     frm.reload_doc().then(() => {
                         frm.crm_notes.refresh();
                     });
-                }, 300);
+                },300);
             };
         }
 
@@ -42,8 +42,6 @@ frappe.ui.form.on("Machine Maintenance", {
             });
         }
     },
-
-
     
     onload(frm) {
         
@@ -71,9 +69,23 @@ frappe.ui.form.on("Machine Maintenance", {
 
 
 frappe.ui.form.on("Machine Maintenance Parts", {
+    part: function(frm, cdt, cdn) {
+        const row = frappe.get_doc(cdt, cdn);
+
+        if (!row.part) {
+            frappe.model.set_value(cdt, cdn, "qty", 0);
+            frappe.model.set_value(cdt, cdn, "rate", 0);
+            frappe.model.set_value(cdt, cdn, "amount", 0);
+
+            frm.refresh_field("parts_used");
+            update_total_cost(frm);
+        }
+    },
+
     qty: function(frm, cdt, cdn) {
         calculate_amount(frm, cdt, cdn);
     },
+
     rate: function(frm, cdt, cdn) {
         calculate_amount(frm, cdt, cdn);
     }
@@ -82,7 +94,21 @@ frappe.ui.form.on("Machine Maintenance Parts", {
 function calculate_amount(frm, cdt, cdn) {
     const row = frappe.get_doc(cdt, cdn);
 
-    row.amount = (row.qty || 0) * (row.rate || 0);
+    
+    if (!row.part) {
+        frappe.model.set_value(cdt, cdn, "qty", 0);
+        frappe.model.set_value(cdt, cdn, "rate", 0);
+        frappe.model.set_value(cdt, cdn, "amount", 0);
+
+        frm.refresh_field("parts_used");
+        update_total_cost(frm);
+        return;
+    }
+
+    const qty = row.qty || 0;
+    const rate = row.rate || 0;
+
+    frappe.model.set_value(cdt, cdn, "amount", qty * rate);
 
     frm.refresh_field("parts_used");
     update_total_cost(frm);
@@ -96,4 +122,15 @@ function update_total_cost(frm) {
     });
 
     frm.set_value("cost", total);
+    update_company_currency_total(frm);
+
 }
+function update_company_currency_total(frm) {
+    const cost = parseFloat(frm.doc.cost) || 0;
+    const rate = parseFloat(frm.doc.conversion_rate) || 1;
+
+    const converted = cost * rate;
+
+    frm.set_value("total_cost_company_currency", converted);
+}
+

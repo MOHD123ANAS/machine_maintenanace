@@ -4,6 +4,9 @@
 import frappe
 from frappe.model.document import Document
 from frappe import _
+from erpnext.setup.utils import get_exchange_rate
+from frappe.utils import flt
+
 
 class MachineMaintenance(Document):
 
@@ -41,12 +44,44 @@ class MachineMaintenance(Document):
             frappe.throw("Invalid Note")
         child.delete(ignore_permissions=True)
         return "ok"
-
+    
     def validate(self):
+
         if self.status != "Completed" and self.machine_date:
             from frappe.utils import getdate, nowdate
             if getdate(self.machine_date) < getdate(nowdate()):
                 self.status = "Overdue"
+
+        company = frappe.db.get_single_value("Global Defaults", "default_company")
+        if not company:
+            frappe.throw("Please set Default Company in Global Defaults.")
+
+        
+        company_currency = frappe.db.get_value("Company", company, "default_currency")
+
+        
+        if not self.currency:
+            frappe.throw("Please select a Currency.")
+
+        
+        if self.currency == company_currency:
+            self.conversion_rate = 1
+        else:
+            
+            try:
+                self.conversion_rate = flt(
+                    get_exchange_rate(self.currency, company_currency, args="for_selling")
+                )
+            except Exception:
+                self.conversion_rate = 1
+
+        
+        cost_value = flt(self.cost) if self.cost else 0
+
+        
+        self.total_cost_company_currency = cost_value * self.conversion_rate
+
+
 
     @frappe.whitelist()
     def mark_completed(self):
@@ -63,26 +98,25 @@ class MachineMaintenance(Document):
             "status": self.status,
             "completion_date": self.completion_date
         }
-
+    
     def create_journal_entry(self):
         if not self.technician:
             frappe.throw("Technician is required to create the Journal Entry.")
 
-        
         company = frappe.db.get_single_value("Global Defaults", "default_company")
         if not company:
             frappe.throw("Please set Default Company in Global Defaults.")
 
         
         settings = frappe.get_single("Machine Maintenance Settings")
-        debit_account = settings.debit_account
+        debit_account = self.debit_account
         credit_account = settings.credit_account
 
         if not debit_account or not credit_account:
             frappe.throw("Please set Debit and Credit Accounts in Machine Maintenance Settings.")
 
-        
-        amount = self.cost or 0
+        costing = self.total_cost_company_currency
+        amount = self.cost 
         if amount <= 0:
             frappe.throw("Cost must be greater than zero to create a Journal Entry.")
 
@@ -91,6 +125,9 @@ class MachineMaintenance(Document):
         je.voucher_type = "Journal Entry"
         je.company = company
         je.posting_date = frappe.utils.nowdate()
+        
+        if self.is_multi_currency:
+            je.multi_currency = 1
 
         
         je.user_remark = self.name
@@ -99,16 +136,14 @@ class MachineMaintenance(Document):
         je.append("accounts", {
             "account": debit_account,
             "debit_in_account_currency": amount,
-            "party_type": "Employee",
-            "party": self.technician,
+
         })
 
         
         je.append("accounts", {
             "account": credit_account,
-            "credit_in_account_currency": amount,
-            "party_type": "Employee",
-            "party": self.technician,
+            "credit_in_account_currency": costing,
+
         })
 
         je.flags.ignore_permissions = True
@@ -116,6 +151,7 @@ class MachineMaintenance(Document):
         je.submit()
 
         frappe.msgprint(f"Journal Entry <b>{je.name}</b> created.", alert=True)
+
     
     def before_save(self):
         self._prev_status = (

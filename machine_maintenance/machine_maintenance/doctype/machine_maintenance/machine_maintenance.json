@@ -11,14 +11,21 @@
   "status",
   "machine_date",
   "edit_posting_date",
+  "conversion_rate",
   "column_break_mfsn",
   "maintenance_type",
   "completion_date",
   "technician",
   "naming_series",
+  "currency",
   "section_break_bnuy",
   "parts_used",
+  "section_break_cnpw",
   "cost",
+  "debit_account",
+  "is_multi_currency",
+  "column_break_dvku",
+  "total_cost_company_currency",
   "notes_tab",
   "notes_html",
   "notes"
@@ -80,6 +87,7 @@
    "fieldname": "cost",
    "fieldtype": "Currency",
    "label": "Cost",
+   "options": "currency",
    "read_only": 1
   },
   {
@@ -128,6 +136,48 @@
    "fieldname": "edit_posting_date",
    "fieldtype": "Check",
    "label": "Edit Posting Date"
+  },
+  {
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency",
+   "print_hide": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "conversion_rate",
+   "fieldtype": "Float",
+   "label": "Conversion Rate"
+  },
+  {
+   "fieldname": "total_cost_company_currency",
+   "fieldtype": "Currency",
+   "label": "Total Cost(Company Currency)",
+   "options": "Company:company:default_currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_cnpw",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "debit_account",
+   "fieldtype": "Link",
+   "label": "Debit Account",
+   "mandatory_depends_on": "eval:doc.status == 'Completed';",
+   "options": "Account"
+  },
+  {
+   "fieldname": "column_break_dvku",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "description": "If Multi-Currency Select the account which belongs to this list currency to avoid error",
+   "fieldname": "is_multi_currency",
+   "fieldtype": "Check",
+   "label": "Is Multi-Currency"
   }
  ],
  "grid_page_length": 50,
@@ -139,7 +189,7 @@
    "link_fieldname": "user_remark"
   }
  ],
- "modified": "2025-11-15 23:23:17.033600",
+ "modified": "2025-11-21 00:05:35.014754",
  "modified_by": "Administrator",
  "module": "Machine Maintenance",
  "name": "Machine Maintenance",

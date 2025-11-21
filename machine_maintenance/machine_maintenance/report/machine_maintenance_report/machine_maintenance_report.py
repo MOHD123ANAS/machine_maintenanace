@@ -131,12 +131,12 @@ def build_conditions(filters):
         conditions += " AND technician = %(technician)s"
         values["technician"] = filters["technician"]
 
-    if filters.get("from_date"):
-        conditions += " AND machine_date >= %(from_date)s"
-        values["from_date"] = filters["from_date"]
+    if filters.get("from_dates"):
+        conditions += " AND machine_date >= %(from_dates)s"
+        values["from_dates"] = filters["from_dates"]
 
-    if filters.get("to_date"):
-        conditions += " AND machine_date <= %(to_date)s"
-        values["to_date"] = filters["to_date"]
+    if filters.get("to_dates"):
+        conditions += " AND machine_date <= %(to_dates)s"
+        values["to_dates"] = filters["to_dates"]
 
     return conditions, values

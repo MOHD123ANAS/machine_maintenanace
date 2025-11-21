@@ -1,0 +1,67 @@
+{
+ "charts": [
+  {
+   "chart_name": "Machine Maintenanace Status",
+   "label": "Machine Maintenanace Status"
+  },
+  {
+   "chart_name": "Machine Maintenanace Monthly Cost",
+   "label": "Machine Maintenanace Monthly Cost"
+  },
+  {
+   "chart_name": "Machine Maintenanace Completed Task",
+   "label": "Machine Maintenanace Completed Task"
+  },
+  {
+   "chart_name": "Machine Maintenanace Monthly Cost Trending",
+   "label": "Machine Maintenanace Monthly Cost Trending"
+  },
+  {
+   "chart_name": "Machine Maintenanace Pending Task",
+   "label": "Machine Maintenanace Pending Task"
+  }
+ ],
+ "content": "[{\"id\":\"vtKJ8mfFMk\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Machine Maintenance</span>\",\"col\":12}},{\"id\":\"sHxVxmvsIR\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Machine Maintenance Report\",\"col\":3}},{\"id\":\"FsIGJ8rGb8\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Machine Maintenance\",\"col\":3}},{\"id\":\"JyGxViD216\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Machine Maintenanace Status\",\"col\":12}},{\"id\":\"A5jjygIq2T\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Machine Maintenanace Monthly Cost\",\"col\":6}},{\"id\":\"SQir788dDo\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Machine Maintenanace Completed Task\",\"col\":6}},{\"id\":\"TICaT-qqcq\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Machine Maintenanace Monthly Cost Trending\",\"col\":6}},{\"id\":\"U0-H0RYlzu\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Machine Maintenanace Pending Task\",\"col\":6}}]",
+ "creation": "2025-11-21 10:29:27.194647",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "quantity-1",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "Machine Maintenanace",
+ "links": [],
+ "modified": "2025-11-21 10:39:54.808851",
+ "modified_by": "Administrator",
+ "module": "Machine Maintenance",
+ "name": "Machine Maintenanace",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 39.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Machine Maintenance Report",
+   "link_to": "Machine Maintenance Report",
+   "report_ref_doctype": "Machine Maintenance",
+   "type": "Report"
+  },
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "label": "Machine Maintenance",
+   "link_to": "Machine Maintenance",
+   "stats_filter": "[]",
+   "type": "DocType"
+  }
+ ],
+ "title": "Machine Maintenanace"
+}

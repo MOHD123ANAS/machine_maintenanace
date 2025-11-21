@@ -14,12 +14,42 @@
    "label": "Consolidated",
    "mandatory": 0,
    "wildcard_filter": 0
+  },
+  {
+   "fieldname": "machine_name",
+   "fieldtype": "Link",
+   "label": "Machine",
+   "mandatory": 0,
+   "options": "Item",
+   "wildcard_filter": 0
+  },
+  {
+   "fieldname": "technician",
+   "fieldtype": "Link",
+   "label": "Technician",
+   "mandatory": 0,
+   "options": "Employee",
+   "wildcard_filter": 0
+  },
+  {
+   "fieldname": "from_dates",
+   "fieldtype": "Date",
+   "label": "From Date",
+   "mandatory": 0,
+   "wildcard_filter": 0
+  },
+  {
+   "fieldname": "to_dates",
+   "fieldtype": "Date",
+   "label": "To Date",
+   "mandatory": 0,
+   "wildcard_filter": 0
   }
  ],
  "idx": 0,
  "is_standard": "Yes",
  "letterhead": null,
- "modified": "2025-11-16 01:17:37.666358",
+ "modified": "2025-11-21 00:38:15.249027",
  "modified_by": "Administrator",
  "module": "Machine Maintenance",
  "name": "Machine Maintenance Report",
