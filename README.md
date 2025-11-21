@@ -1,41 +1,18 @@
-### Machine Maintenance
-
-Machine Maintenance
+## Machine Maintenance
 
 ### Installation
 
-You can install this app using the [bench](https://github.com/frappe/bench) CLI:
+Make sure ERPNext and Frappe are installed as prerequisites.
 
 ```bash
 cd $PATH_TO_YOUR_BENCH
-bench get-app $URL_OF_THIS_REPO --branch develop
-bench install-app machine_maintenance
+bench get-app https://github.com/MOHD123ANAS/machine_maintenanace
+# Install the app on your site 
+bench --site site-name install-app machine_maintenance
 ```
 
-### Contributing
-
-This app uses `pre-commit` for code formatting and linting. Please [install pre-commit](https://pre-commit.com/#installation) and enable it for this repository:
-
-```bash
-cd apps/machine_maintenance
-pre-commit install
-```
-
-Pre-commit is configured to use the following tools for checking and formatting your code:
-
-- ruff
-- eslint
-- prettier
-- pyupgrade
-
-### CI
-
-This app can use GitHub Actions for CI. The following workflows are configured:
-
-- CI: Installs this app and runs unit tests on every push to `develop` branch.
-- Linters: Runs [Frappe Semgrep Rules](https://github.com/frappe/semgrep-rules) and [pip-audit](https://pypi.org/project/pip-audit/) on every pull request.
-
-
-### License
-
-mit
+### How To setup Journal Entry
+- Navigate to Machine Maintenance Settings and set the Credit Account (Company Currency).
+- In the Machine Maintenance form, set the Debit Account in the currency being used while creating the Machine Maintenance document.
+- If it is different from the company currency, enable the Is Multi-Currency checkbox.
+- When the workflow is closed, the Journal Entry is automatically created.
